@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("meeting", [
+var app = angular.module("meeting", [
   "ui.router",
   "pascalprecht.translate"
 ]);
