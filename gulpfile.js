@@ -1,11 +1,13 @@
 var gulp = require('gulp');
 var pug = require('gulp-pug');
 var minify = require('gulp-minify');
+var concat = require('gulp-concat');
+var mainBowerFiles = require('main-bower-files');
 var pjson = require('./package.json');
 
 var environmentOptions = {
   "pug": {
-    "pretty": true
+    "pretty": false
   },
   "minify": {
     "compress": {},
@@ -19,7 +21,8 @@ var templateData = {
 };
 
 var sources = {
-  "templates": "src/**.pug"
+  "templates": "src/**/*.pug",
+  "scripts": "src/**/*.js",
 };
 
 var intermediates = {
@@ -27,7 +30,7 @@ var intermediates = {
 };
 
 var destinations = {
-  "templates": "build/release"
+  "dist": "build/release"
 };
 
 gulp.task("compile-templates", function() {
@@ -42,5 +45,19 @@ gulp.task("compile-templates", function() {
 gulp.task("minify-templates", function() {
   return gulp.src(intermediates.templates + "/**/*.html")
     .pipe(minify(environmentOptions.minify))
-    .pipe(gulp.dest(destinations.templates));
+    .pipe(gulp.dest(destinations.dist));
+});
+
+gulp.task("script-vendor", function(){
+  return gulp.src(mainBowerFiles())
+    .pipe(concat("vendor.js"))
+    .pipe(minify(environmentOptions.minify))
+    .pipe(gulp.dest(destinations.dist));
+});
+
+gulp.task("script-app", function(){
+  return gulp.src(sources.scripts)
+    .pipe(concat("app.js"))
+    .pipe(minify(environmentOptions.minify))
+    .pipe(gulp.dest(destinations.dist));
 });

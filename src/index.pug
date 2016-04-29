@@ -1,5 +1,7 @@
 doctype html
-html(lang="{{language}}")
+html(lang="{{language}}", ng-app="meeting")
   head
     meta(name="version", content=version)
   body
+    script(src="vendor-min.js")
+    script(src="app-min.js")
