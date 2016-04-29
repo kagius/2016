@@ -2,6 +2,16 @@ doctype html
 html(lang="{{language}}", ng-app="meeting")
   head
     meta(name="version", content=version)
+    base(href="http://localhost/")
   body
+    ul
+      each lang in languages
+        li
+          a(ui-sref="app.home({'language':'" + lang + "'})")=lang
+
+    nav
+      a(ui-sref="app.home({'language':'en'})")="home"
+      a(ui-sref="app.instructors.list({'language':'en'})")="instructors"
+    ui-view
     script(src="vendor-min.js")
     script(src="app-min.js")

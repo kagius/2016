@@ -17,7 +17,8 @@ var environmentOptions = {
 };
 
 var templateData = {
-  "version": pjson.version
+  "version": pjson.version,
+  "languages": ["en","it"]
 };
 
 var sources = {
@@ -44,7 +45,7 @@ gulp.task("compile-templates", function() {
 
 gulp.task("minify-templates", function() {
   return gulp.src(intermediates.templates + "/**/*.html")
-    .pipe(minify(environmentOptions.minify))
+  //  .pipe(minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
 });
 
@@ -57,7 +58,7 @@ gulp.task("script-vendor", function(){
 
 gulp.task("script-app", function(){
   return gulp.src(sources.scripts)
-    .pipe(concat("app.js"))
-    .pipe(minify(environmentOptions.minify))
+    .pipe(concat("app-min.js"))
+    //.pipe(minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
 });
