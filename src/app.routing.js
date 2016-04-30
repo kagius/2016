@@ -21,10 +21,14 @@ angular
         };
 
         var controllerFactory = function(languageCode) {
-            return function($rootScope, $state) {
+            return function($rootScope, $state, $translate) {
               $rootScope.language = languageCode;
-              $rootScope.localizeRoute = function(suffix) {
-                return $state.href("app." + languageCode + "." + suffix);
+              $translate.use(languageCode);
+              $rootScope.localizeRoute = function(suffix, params) {
+                return $state.href("app." + languageCode + "." + suffix, params);
+              }
+              $rootScope.localizeCurrentRoute = function(languageCode) {
+                return $state.href("app." + languageCode + "." + $state.current.suffix, $state.params);
               }
             };
         };
@@ -40,10 +44,11 @@ angular
               "abstract": true,
               "url": languageCode,
               "template": "<ui-view/>",
-              "controller": ["$rootScope", "$state", controllerFactory(languageCode)]
+              "controller": ["$rootScope", "$state", "$translate", controllerFactory(languageCode)]
             })
             .state(localisedRoot + ".home", {
               "url": "",
+              "suffix": "home",
               "templateUrl": "/home/home.html"
             })
             .state(localisedRoot + ".instructors", {
@@ -53,10 +58,13 @@ angular
             })
             .state(localisedRoot + ".instructors.list", {
               "url": "",
-              "templateUrl": "/instructors/list.html"
+              "suffix": "instructors.list",
+              "templateUrl": "/instructors/list.html",
+              "controller": "instructorListCtrl"
             })
             .state(localisedRoot + ".instructors.detail", {
               "url": "/:key",
+              "suffix": "instructors.detail",
               "templateUrl": "/instructors/detail.html"
             });
         };

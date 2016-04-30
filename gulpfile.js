@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var pug = require('gulp-pug');
 var minify = require('gulp-minify');
 var concat = require('gulp-concat');
+var copy = require('gulp-copy');
 var mainBowerFiles = require('main-bower-files');
 var pjson = require('./package.json');
 
@@ -18,12 +19,14 @@ var environmentOptions = {
 
 var templateData = {
   "version": pjson.version,
+  "baseUrl": "http://localhost",
   "languages": ["en","it"]
 };
 
 var sources = {
   "templates": "src/**/*.pug",
   "scripts": "src/**/*.js",
+  "locales": "locales/**/*.json"
 };
 
 var intermediates = {
@@ -48,6 +51,11 @@ gulp.task("minify-templates", function() {
   //  .pipe(minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
 });
+
+gulp.task("copy-locales", function(){
+  return gulp.src(sources.locales)
+    .pipe(copy(destinations.dist));
+})
 
 gulp.task("script-vendor", function(){
   return gulp.src(mainBowerFiles())

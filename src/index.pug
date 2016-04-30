@@ -2,19 +2,22 @@ doctype html
 html(lang="{{language}}", ng-app="meeting")
   head
     meta(name="version", content=version)
+    link(rel="canonical", href=baseUrl+"{{localizeCurrentRoute(language)}}")
+    each lang in languages
+      link(rel="alternate", hreflang=lang, ng-if="language != '" + lang + "'", ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")
     base(href="/")
   body
     ul
       each lang in languages
         li
-          a(href="/" + lang)=lang
+          a(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
 
     nav
       ul
         li
-          a(ng-href="{{ localizeRoute('home') }}")="home"
+          a(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
         li
-          a(ng-href="{{ localizeRoute('instructors.list') }}")="instructors"
+          a(ng-href="{{ localizeRoute('instructors.list') }}")="{{'instructors'|translate}}"
     ui-view
     script(src="vendor-min.js")
     script(src="app-min.js")
