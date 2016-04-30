@@ -8,6 +8,7 @@ angular
           suffix: '.json'
       }]
     });
+    $translateProvider.useSanitizeValueStrategy(null);
     $translateProvider.useLoaderCache(true);
     $translateProvider.preferredLanguage('en');
 }]);

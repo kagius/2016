@@ -1,4 +1,10 @@
 {
+  "siteTitle": "Malta Historical Fencing Association International Meeting 2016",
   "instructors": "instructors",
-  "home": "home"
+  "home": "home",
+  "Malta":"Malta",
+  "Italy":"Italy",
+
+  "patronage": "Under the distinguished patronage of <a href=\"http://president.gov.mt/\">Her Excellency Marie-Louise Coleiro Preca, President of Malta</a>",
+  "organizedby": "Organized by the <a href=\"http://historicalfencingmalta.org\">Malta Historical Fencing Association</a>"
 }

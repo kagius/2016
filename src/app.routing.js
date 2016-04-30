@@ -49,7 +49,8 @@ angular
             .state(localisedRoot + ".home", {
               "url": "",
               "suffix": "home",
-              "templateUrl": "/home/home.html"
+              "templateUrl": "/home/home.html",
+              "controller":"homeCtrl"
             })
             .state(localisedRoot + ".instructors", {
               "abstract": true,

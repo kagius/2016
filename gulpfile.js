@@ -26,7 +26,8 @@ var templateData = {
 var sources = {
   "templates": "src/**/*.pug",
   "scripts": "src/**/*.js",
-  "locales": "locales/**/*.json"
+  "locales": "locales/**/*.json",
+  "content": "content/**/*.json"
 };
 
 var intermediates = {
@@ -55,7 +56,12 @@ gulp.task("minify-templates", function() {
 gulp.task("copy-locales", function(){
   return gulp.src(sources.locales)
     .pipe(copy(destinations.dist));
-})
+});
+
+gulp.task("copy-content", function(){
+  return gulp.src(sources.content)
+    .pipe(copy(destinations.dist));
+});
 
 gulp.task("script-vendor", function(){
   return gulp.src(mainBowerFiles())

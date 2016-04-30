@@ -4,4 +4,4 @@ ul(class="instructors")
   li(ng-repeat="instructor in ::data")
     a(ng-href="{{ localizeRoute('instructors.detail', { 'key':instructor.key }) }}", class="{{instructor.country.code}}")
       h2="{{::instructor.name}}"
-      h3(class="org {{::instructor.organization.name}}")="{{::instructor.organization.name}} ({{instructor.country.name}})"
+      h3(class="org {{::instructor.organization.code}}")="{{::instructor.organization.name}} ({{instructor.country.name|translate}})"
