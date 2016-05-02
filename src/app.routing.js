@@ -3,76 +3,50 @@
 
   angular
     .module("meeting")
-    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "supportedLanguages",
-      function($stateProvider, $urlRouterProvider, $locationProvider, supportedLanguages){
+    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "supportedLanguages", "localizedRoutes",
+      function($stateProvider, $urlRouterProvider, $locationProvider, supportedLanguages, localizedRoutes){
 
-        var localizedUrls = {
-          "instructors": {
-            "en": "instructors",
-            "it": "insegnanti"
-          }
+        var register = function(language, root, stateDefinition) {
+
+          var state = angular.extend({}, stateDefinition);
+          var stateName = (state.key) ? (root + "." + state.key) : root;
+
+          // If the state does not have a specific url (which may be empty),
+          // pick the localized url for it. In the case of the language root,
+          // this will just be the language.
+          if (typeof(state.url) === "undefined")
+            state.url = (stateDefinition.urlParts)
+              ? "/" + stateDefinition.urlParts[language]
+              : language;
+
+          state.language = language;
+
+          $stateProvider.state(stateName, state);
+          console.log(stateName, state.url, state.template, state.templateUrl);
         };
 
         // Application root
-        $stateProvider
-          .state("app", {
-            "abstract": true,
-            "url": "/",
-            "template": "<ui-view/>"
-          });
+        $stateProvider.state("app", {
+          "abstract": true,
+          "url": "/",
+          "template": "<ui-view/>"
+        });
 
-          var controllerFactory = function(languageCode) {
-              return function($rootScope, $state, $translate) {
-                $rootScope.language = languageCode;
-                $translate.use(languageCode);
-                $rootScope.localizeRoute = function(suffix, params) {
-                  return $state.href("app." + languageCode + "." + suffix, params);
-                };
-                $rootScope.localizeCurrentRoute = function(languageCode) {
-                  return $state.href("app." + languageCode + "." + $state.current.suffix, $state.params);
-                };
-              };
-          };
+        // localised routes. These will be in the form app.en, app.it, etc.
+        for (var i = 0; i < supportedLanguages.length; i++) {
 
-          // localised routes. These will be in the form app.en, app.it, etc.
-          for (var i = 0; i < supportedLanguages.length; i++) {
+          var languageCode = supportedLanguages[i];
+          var localizedRoot = "app." + languageCode;
 
-            var languageCode = supportedLanguages[i];
-            var localisedRoot = "app." + languageCode;
-
-            $stateProvider
-              .state(localisedRoot, {
-                "abstract": true,
-                "url": languageCode,
-                "template": "<ui-view/>",
-                "controller": ["$rootScope", "$state", "$translate", controllerFactory(languageCode)]
-              })
-              .state(localisedRoot + ".home", {
-                "url": "",
-                "suffix": "home",
-                "templateUrl": "/home/home.html",
-                "controller":"homeCtrl"
-              })
-              .state(localisedRoot + ".instructors", {
-                "abstract": true,
-                "url": "/" + localizedUrls.instructors[languageCode],
-                "template": "<ui-view/>"
-              })
-              .state(localisedRoot + ".instructors.list", {
-                "url": "",
-                "suffix": "instructors.list",
-                "templateUrl": "/instructors/list.html",
-                "controller": "instructorListCtrl"
-              })
-              .state(localisedRoot + ".instructors.detail", {
-                "url": "/:key",
-                "suffix": "instructors.detail",
-                "templateUrl": "/instructors/detail.html"
-              });
+          // Declare routes.
+          for (var routeDefinitionIndex = 0; routeDefinitionIndex < localizedRoutes.length; routeDefinitionIndex++) {
+            var definition = localizedRoutes[routeDefinitionIndex];
+            register(languageCode, localizedRoot, definition);
           }
+        }
 
-          // Default: Redirect to home (en)
-          $urlRouterProvider.otherwise("/en");
-          $locationProvider.html5Mode(true);
-        }]);
+        // Default: Redirect to home (en)
+        $urlRouterProvider.otherwise("/en");
+        $locationProvider.html5Mode(true);
+      }]);
 })();
