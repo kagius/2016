@@ -22,3 +22,4 @@ Content for the pages is currently loaded separately from the 'content' folder. 
 * Event programme with Google calendar support
 * Registration form
 * Share on Facebook
+* Best guess language selection on root

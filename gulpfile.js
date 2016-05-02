@@ -1,10 +1,9 @@
 var gulp = require('gulp');
-var pug = require('gulp-pug');
-var minify = require('gulp-minify');
-var concat = require('gulp-concat');
-var copy = require('gulp-copy');
+var plugins = require('gulp-load-plugins')();
+
 var mainBowerFiles = require('main-bower-files');
 var pjson = require('./package.json');
+var stylish = require('jshint-stylish');
 
 var environmentOptions = {
   "pug": {
@@ -40,7 +39,7 @@ var destinations = {
 
 gulp.task("compile-templates", function() {
   return gulp.src(sources.templates)
-    .pipe(pug({
+    .pipe(plugins.pug({
       pretty: environmentOptions.pug.pretty,
       data: templateData
     }))
@@ -49,30 +48,32 @@ gulp.task("compile-templates", function() {
 
 gulp.task("minify-templates", function() {
   return gulp.src(intermediates.templates + "/**/*.html")
-  //  .pipe(minify(environmentOptions.minify))
+    //.pipe(plugins.minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
 });
 
 gulp.task("copy-locales", function(){
   return gulp.src(sources.locales)
-    .pipe(copy(destinations.dist));
+    .pipe(plugins.copy(destinations.dist));
 });
 
 gulp.task("copy-content", function(){
   return gulp.src(sources.content)
-    .pipe(copy(destinations.dist));
+    .pipe(plugins.copy(destinations.dist));
 });
 
 gulp.task("script-vendor", function(){
   return gulp.src(mainBowerFiles())
-    .pipe(concat("vendor.js"))
-    .pipe(minify(environmentOptions.minify))
+    .pipe(plugins.concat("vendor.js"))
+    .pipe(plugins.minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
 });
 
 gulp.task("script-app", function(){
   return gulp.src(sources.scripts)
-    .pipe(concat("app-min.js"))
-    //.pipe(minify(environmentOptions.minify))
+    .pipe(plugins.jshint())
+    .pipe(plugins.jshint.reporter(stylish,{"verbose": true}))
+    .pipe(plugins.minify(environmentOptions.minify))
+    .pipe(plugins.concat("app-min.js"))
     .pipe(gulp.dest(destinations.dist));
 });
