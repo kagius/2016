@@ -3,8 +3,15 @@
 
   angular
     .module("meeting")
-    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
-      function($stateProvider, $urlRouterProvider, $locationProvider){
+    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "supportedLanguages",
+      function($stateProvider, $urlRouterProvider, $locationProvider, supportedLanguages){
+
+        var localizedUrls = {
+          "instructors": {
+            "en": "instructors",
+            "it": "insegnanti"
+          }
+        };
 
         // Application root
         $stateProvider
@@ -13,15 +20,6 @@
             "url": "/",
             "template": "<ui-view/>"
           });
-
-          var languages = ["en", "it"];
-
-          var localizedUrls = {
-            "instructors": {
-              "en": "instructors",
-              "it": "insegnanti"
-            }
-          };
 
           var controllerFactory = function(languageCode) {
               return function($rootScope, $state, $translate) {
@@ -37,9 +35,9 @@
           };
 
           // localised routes. These will be in the form app.en, app.it, etc.
-          for (var i = 0; i < languages.length; i++) {
+          for (var i = 0; i < supportedLanguages.length; i++) {
 
-            var languageCode = languages[i];
+            var languageCode = supportedLanguages[i];
             var localisedRoot = "app." + languageCode;
 
             $stateProvider
