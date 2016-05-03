@@ -25,6 +25,7 @@ var templateData = {
 var sources = {
   "templates": "src/**/*.pug",
   "scripts": "src/**/*.js",
+  "sass": "src/sass/**/*.scss",
   "locales": "locales/**/*.json",
   "content": "content/**/*.json"
 };
@@ -36,6 +37,16 @@ var intermediates = {
 var destinations = {
   "dist": "build/release"
 };
+
+gulp.task("templates", function() {
+  return gulp.src(sources.templates)
+    .pipe(plugins.pug({
+      pretty: environmentOptions.pug.pretty,
+      data: templateData
+    }))
+    .pipe(gulp.dest(destinations.dist));
+});
+
 
 gulp.task("compile-templates", function() {
   return gulp.src(sources.templates)
@@ -77,3 +88,10 @@ gulp.task("script-app", function(){
     .pipe(plugins.concat("app-min.js"))
     .pipe(gulp.dest(destinations.dist));
 });
+
+gulp.task("style", function(){
+  return gulp.src(sources.sass)
+    .pipe(plugins.sass())
+    .pipe(plugins.minify(environmentOptions.minify))
+    .pipe(gulp.dest(destinations.dist));
+})

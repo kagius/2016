@@ -1,0 +1,11 @@
+@import "bower_components\\bootstrap-sass\\assets\\stylesheets\\_bootstrap.scss";
+
+.text-smaller {
+  font-size: 0.8em;
+}
+
+@for $i from 1 through 2 {
+  .space-after-#{$i} {
+    margin-bottom: #{$i}em;
+  }
+}
