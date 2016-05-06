@@ -27,7 +27,7 @@ var sources = {
   "scripts": "src/**/*.js",
   "sass": "src/sass/**/*.scss",
   "locales": "locales/**/*.json",
-  "content": "content/**/*.json",
+  "content": "i18n/**/*.json",
   "images": "images/**/*.jpg",
   "fonts": "bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*"
 };
@@ -65,12 +65,7 @@ gulp.task("minify-templates", function() {
     .pipe(gulp.dest(destinations.dist));
 });
 
-gulp.task("copy-locales", function(){
-  return gulp.src(sources.locales)
-    .pipe(plugins.copy(destinations.dist));
-});
-
-gulp.task("copy-content", function(){
+gulp.task("copy-i18n", function(){
   return gulp.src(sources.content)
     .pipe(plugins.copy(destinations.dist));
 });

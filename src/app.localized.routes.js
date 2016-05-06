@@ -8,9 +8,12 @@
         {
           "abstract": true,
           "template": "<ui-view/>",
-          "controller": ["$rootScope", "$state", "$translate", function($rootScope, $state, $translate) {
+          "controller": ["$rootScope", "$state", "$translate", "$translatePartialLoader", function($rootScope, $state, $translate, $translatePartialLoader) {
             $rootScope.language = $state.current.language;
+
             $translate.use($state.current.language);
+            $translatePartialLoader.addPart($state.current.key);
+            $translate.refresh();
 
             $rootScope.localizeRoute = function(key, params) {
               return $state.href("app." + $rootScope.language + "." + key, params);
@@ -24,8 +27,7 @@
         {
           "url": "",
           "key": "home",
-          "templateUrl": "/home/home.html",
-          "controller":"homeCtrl"
+          "templateUrl": "/home/home.html"
         },
         {
           "key": "instructors",

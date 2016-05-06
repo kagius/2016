@@ -9,6 +9,8 @@ html(lang="{{language}}", ng-app="meeting")
       link(rel="alternate", hreflang=lang, ng-if="language != '" + lang + "'", ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")
     base(href="/")
     link(rel="stylesheet", href="app.css")
+    meta(name="keywords", content="{{'keywords'|translate}}")
+    meta(name="description", content="{{'description'|translate}}")
   body
     header
       .btn-group(role="group")

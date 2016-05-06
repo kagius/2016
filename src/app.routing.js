@@ -22,7 +22,6 @@
           state.language = language;
 
           $stateProvider.state(stateName, state);
-          console.log(stateName, state.url, state.template, state.templateUrl);
         };
 
         // Application root

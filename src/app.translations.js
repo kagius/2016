@@ -3,14 +3,13 @@
 
   angular
     .module("meeting")
-    .config(["$translateProvider", function($translateProvider) {
+    .config(["$translateProvider", "$translatePartialLoaderProvider", function($translateProvider, $translatePartialLoaderProvider) {
 
-      $translateProvider.useStaticFilesLoader({
-        files: [{
-            prefix: '/locales/locale-',
-            suffix: '.json'
-        }]
+      $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate: '/i18n/{part}/{lang}.json'
       });
+
+      $translatePartialLoaderProvider.addPart('common');
       $translateProvider.useSanitizeValueStrategy(null);
       $translateProvider.useLoaderCache(true);
       $translateProvider.preferredLanguage('en');
