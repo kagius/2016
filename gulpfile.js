@@ -25,8 +25,11 @@ var templateData = {
 var sources = {
   "templates": "src/**/*.pug",
   "scripts": "src/**/*.js",
+  "sass": "src/sass/**/*.scss",
   "locales": "locales/**/*.json",
-  "content": "content/**/*.json"
+  "content": "content/**/*.json",
+  "images": "images/**/*.jpg",
+  "fonts": "bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*"
 };
 
 var intermediates = {
@@ -36,6 +39,16 @@ var intermediates = {
 var destinations = {
   "dist": "build/release"
 };
+
+gulp.task("templates", function() {
+  return gulp.src(sources.templates)
+    .pipe(plugins.pug({
+      pretty: environmentOptions.pug.pretty,
+      data: templateData
+    }))
+    .pipe(gulp.dest(destinations.dist));
+});
+
 
 gulp.task("compile-templates", function() {
   return gulp.src(sources.templates)
@@ -62,8 +75,19 @@ gulp.task("copy-content", function(){
     .pipe(plugins.copy(destinations.dist));
 });
 
+gulp.task("copy-fonts", function(){
+  return gulp.src(sources.fonts)
+    .pipe(plugins.copy(destinations.dist+"/fonts/bootstrap", {"prefix":5}));
+});
+
+gulp.task("copy-images", function(){
+  return gulp.src(sources.images)
+    .pipe(plugins.copy(destinations.dist));
+});
+
 gulp.task("script-vendor", function(){
-  return gulp.src(mainBowerFiles())
+
+  return gulp.src(mainBowerFiles('**/*.js'))
     .pipe(plugins.concat("vendor.js"))
     .pipe(plugins.minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));
@@ -77,3 +101,10 @@ gulp.task("script-app", function(){
     .pipe(plugins.concat("app-min.js"))
     .pipe(gulp.dest(destinations.dist));
 });
+
+gulp.task("style", function(){
+  return gulp.src(sources.sass)
+    .pipe(plugins.sass())
+    .pipe(plugins.minify(environmentOptions.minify))
+    .pipe(gulp.dest(destinations.dist));
+})

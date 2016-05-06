@@ -1,31 +1,31 @@
 doctype html
 html(lang="{{language}}", ng-app="meeting")
   head
+    meta(name="viewport", content="width=device-width, initial-scale=1")
     title(translate="siteTitle")
     meta(name="version", content=version)
     link(rel="canonical", href=baseUrl+"{{localizeCurrentRoute(language)}}")
     each lang in languages
       link(rel="alternate", hreflang=lang, ng-if="language != '" + lang + "'", ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")
     base(href="/")
+    link(rel="stylesheet", href="app.css")
   body
     header
-      ul
+      .btn-group(role="group")
         each lang in languages
-          li
-            a(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
+            a.btn.btn-default(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
 
-      nav
-        ul
-          li
-            a(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
-          li
-            a(ng-href="{{ localizeRoute('instructors.list') }}")="{{'instructors'|translate}}"
+      nav.row.text-capitalize
+        a.col-sm-1.col-md-offset-10.text-center.text-capitalize(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
+        a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('instructors.list') }}")="{{'instructors'|translate}}"
 
-    section(ui-view)
+    section.space-after-2(ui-view)
 
-    footer
-      div(translate="patronage")
-      div(translate="organizedby")
+    footer.container-fluid
+      .row.space-after-1
+        .col-sm-12.text-center.text-capitalize.text-smaller(translate="patronage")
+      .row.space-after-2
+        .col-sm-12.text-center.text-capitalize.text-smaller(translate="organizedby")
 
     script(src="vendor-min.js")
     script(src="app-min.js")
