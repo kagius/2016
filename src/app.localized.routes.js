@@ -27,7 +27,7 @@
         {
           "url": "",
           "key": "home",
-          "templateUrl": "/home/home.html"
+          "templateUrl": "/home/index.html"
         },
         {
           "key": "instructors",
@@ -39,9 +39,33 @@
           }
         },
         {
+          "key": "venue",
+          "templateUrl": "/venue/index.html",
+          "urlParts":{
+            "en": "venue",
+            "it": "sala"
+          }
+        },
+        {
+          "key": "accommodation",
+          "templateUrl": "/accommodation/index.html",
+          "urlParts":{
+            "en": "accommodation",
+            "it": "accomodazione"
+          }
+        },
+        {
+          "key": "register",
+          "templateUrl": "/register/index.html",
+          "urlParts":{
+            "en": "registration",
+            "it": "registrazione"
+          }
+        },
+        {
           "key": "instructors.list",
           "url": "",
-          "templateUrl": "/instructors/list.html",
+          "templateUrl": "/instructors/index.html",
           "controller": "instructorListCtrl"
         },
         {

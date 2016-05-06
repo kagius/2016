@@ -18,8 +18,11 @@ html(lang="{{language}}", ng-app="meeting")
             a.btn.btn-default(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
 
       nav.row.text-capitalize
-        a.col-sm-1.col-md-offset-10.text-center.text-capitalize(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
+        a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
         a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('instructors.list') }}")="{{'instructors'|translate}}"
+        a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('venue') }}")="{{'venue'|translate}}"
+        a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('accommodation') }}")="{{'accommodation'|translate}}"
+        a.col-sm-1.text-center.text-capitalize(ng-href="{{ localizeRoute('register') }}")="{{'register'|translate}}"
 
     section.space-after-2(ui-view)
 
