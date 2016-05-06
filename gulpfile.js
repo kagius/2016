@@ -27,7 +27,8 @@ var sources = {
   "scripts": "src/**/*.js",
   "sass": "src/sass/**/*.scss",
   "locales": "locales/**/*.json",
-  "content": "content/**/*.json"
+  "content": "content/**/*.json",
+  "fonts": "bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*"
 };
 
 var intermediates = {
@@ -71,6 +72,11 @@ gulp.task("copy-locales", function(){
 gulp.task("copy-content", function(){
   return gulp.src(sources.content)
     .pipe(plugins.copy(destinations.dist));
+});
+
+gulp.task("copy-fonts", function(){
+  return gulp.src(sources.fonts)
+    .pipe(plugins.copy(destinations.dist+"/fonts/bootstrap", {"prefix":5}));
 });
 
 gulp.task("script-vendor", function(){

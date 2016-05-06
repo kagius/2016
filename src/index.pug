@@ -11,10 +11,9 @@ html(lang="{{language}}", ng-app="meeting")
     link(rel="stylesheet", href="app.css")
   body
     header
-      ul
+      .btn-group(role="group")
         each lang in languages
-          li
-            a(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
+            a.btn.btn-default(ng-href=baseUrl+"{{localizeCurrentRoute('" + lang + "')}}")=lang
 
       nav.row.text-capitalize
         a.col-sm-1.col-md-offset-10.text-center.text-capitalize(ng-href="{{ localizeRoute('home') }}")="{{'home'|translate}}"
@@ -23,9 +22,9 @@ html(lang="{{language}}", ng-app="meeting")
     section.space-after-2(ui-view)
 
     footer.container-fluid
-      .row
+      .row.space-after-1
         .col-sm-12.text-center.text-capitalize.text-smaller(translate="patronage")
-      .row
+      .row.space-after-2
         .col-sm-12.text-center.text-capitalize.text-smaller(translate="organizedby")
 
     script(src="vendor-min.js")
