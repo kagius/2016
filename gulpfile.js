@@ -28,6 +28,7 @@ var sources = {
   "sass": "src/sass/**/*.scss",
   "locales": "locales/**/*.json",
   "content": "content/**/*.json",
+  "images": "images/**/*.jpg",
   "fonts": "bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*"
 };
 
@@ -79,8 +80,14 @@ gulp.task("copy-fonts", function(){
     .pipe(plugins.copy(destinations.dist+"/fonts/bootstrap", {"prefix":5}));
 });
 
+gulp.task("copy-images", function(){
+  return gulp.src(sources.images)
+    .pipe(plugins.copy(destinations.dist));
+});
+
 gulp.task("script-vendor", function(){
-  return gulp.src(mainBowerFiles())
+
+  return gulp.src(mainBowerFiles('**/*.js'))
     .pipe(plugins.concat("vendor.js"))
     .pipe(plugins.minify(environmentOptions.minify))
     .pipe(gulp.dest(destinations.dist));

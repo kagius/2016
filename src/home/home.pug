@@ -1,37 +1,23 @@
-section.jumbotron
-  .container-fluid
-    #homeCarousel.carousel.slide(data-ride="carousel")
-      ol.carousel-indicators
-        li.active(data-target="#homeCarousel", data-slide-to="0")
-        li(data-target="#homeCarousel", data-slide-to="1")
-        li(data-target="#homeCarousel", data-slide-to="2")
-        li(data-target="#homeCarousel", data-slide-to="3")
-        li(data-target="#homeCarousel", data-slide-to="4")
+section#homeCarousel.carousel.slide.space-after-2(data-ride="carousel")
+    ol.carousel-indicators
+      li.active(data-target="#homeCarousel", data-slide-to="0")
+      li(data-target="#homeCarousel", data-slide-to="1")
 
-      .carousel-inner(role="listbox")
-        .item.active
-          img(src="", alt="")
-          .carousel-caption="0"
-        .item
-          img(src="", alt="")
-          .carousel-caption="1"
-        .item
-          img(src="", alt="")
-          .carousel-caption="2"
-        .item
-          img(src="", alt="")
-          .carousel-caption="3"
-        .item
-          img(src="", alt="")
-          .carousel-caption="4"
+    .carousel-inner(role="listbox")
+      .item.active
+        img.img-responsive(sizes="(min-width: 40em) 80vw, 100vw", srcset="images/group-750.jpg 375w, images/group-970.jpg 970w, images/group-1200.jpg 1200w, images/group-2000.jpg 1500w")
+        .carousel-caption="0"
+      .item
+        img.img-responsive(sizes="(min-width: 40em) 80vw, 100vw", srcset="images/lesson-750.jpg 375w, images/lesson-970.jpg 970w, images/lesson-1200.jpg 1200w, images/lesson-2000.jpg 1500w")
+        .carousel-caption="1"
 
-      a.left.carousel-control(href="#homeCarousel" role="button" data-slide="prev")
-        span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
-        span.sr-only="Previous"
+    a.left.carousel-control(href="#homeCarousel" role="button" data-slide="prev")
+      span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+      span.sr-only="Previous"
 
-      a.right.carousel-control(href="#homeCarousel" role="button" data-slide="next")
-        span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
-        span.sr-only="Next"
+    a.right.carousel-control(href="#homeCarousel" role="button" data-slide="next")
+      span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+      span.sr-only="Next"
 
 article.container
   .row
